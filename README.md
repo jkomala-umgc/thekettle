@@ -1,6 +1,6 @@
-# thekettle
-A simulation of the electric kettle.
-<img width="508" alt="Screenshot_20230215_070431" src="https://user-images.githubusercontent.com/76917080/219023904-a7689640-f9b3-4c10-a535-533613f38046.png">
+# thekettle 
+A simulation of the electric kettle. <br/>
+<img width="508" alt="Screenshot_20230215_070431" src="https://user-images.githubusercontent.com/76917080/219023904-a7689640-f9b3-4c10-a535-533613f38046.png"> 
 ## Input:
 Water volume integer (in ml).
 
