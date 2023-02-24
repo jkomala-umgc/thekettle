@@ -1,6 +1,6 @@
 # thekettle 
 A simulation of the electric kettle. <br/>
-<img width="508" alt="Screenshot_20230215_070431" src="https://user-images.githubusercontent.com/76917080/219023904-a7689640-f9b3-4c10-a535-533613f38046.png"> 
+<img width="417" alt="image" src="https://user-images.githubusercontent.com/122988058/221279877-531d3fe3-9e40-453e-b814-5ab23452ade5.png">
 ## Inputs:
 - Integer: Water volume (in ml).
 - Integer: Room temperature (in degree Celsius).
@@ -12,8 +12,6 @@ A simulation of the electric kettle. <br/>
 - Energy in water (in kilojoule)
 - Time taken (s).
 - Water volume (ml).
-- 
-
 
 ## How to run:
 `$ javac MyKettle.java` <br />
