@@ -1,61 +1,95 @@
 public class Kettle {
-
     // Being a kettle is harder than you thought.
     public static final int KETTLE_WATTAGE = 1800; // unit: watts
     public static final int MAX_WATER_VOLUME = 1750; // unit: milliliter
     public static final double STANDARD_HEAT_CAPACITY = 4.20;  //unit: Joules per gran by celsius
-    int waterVolume = 0; // unit: milliliter
+    private int waterVolume; // unit: milliliter
+
+    public Kettle(int waterVolume, double roomTemperature) {
+        //check arguments before instantiation.
+        if (waterVolume >= 0 && waterVolume <= MAX_WATER_VOLUME) {
+            this.waterVolume = waterVolume;
+        }
+        else {
+            throw new IllegalArgumentException("waterVolume must be positive and less than 1750 ml.");
+        }
+
+        if (roomTemperature > 0) {
+            this.roomTemperature = roomTemperature;
+        }
+        else {
+            throw new IllegalArgumentException("We haven't figured out how to make this kettle work under a subzero condition.");
+        }
+
+
+    }
+
 
     /*
      * all temperatures are in degree celsius
      * water freezes at 0 and boils at 100.
      */
-    double roomTemperature = 25.0;
-    double waterTemperature = roomTemperature;
+    private double roomTemperature;
+    private double waterTemperature = roomTemperature;
 
     //the water already has some kinetic energy in it!
-    double totalSystemEnergy = STANDARD_HEAT_CAPACITY * waterVolume * waterTemperature; //unit: joules
+    private double totalSystemEnergy = STANDARD_HEAT_CAPACITY * waterVolume * waterTemperature; //unit: joules
 
-    boolean kettleOn = false;
+    private boolean kettleOn = false;
+    private int estimatedTime = 0;
 
 
-    void handleKettlePhysics() {
-        System.out.println("Boiling ... please be patient");
-        while (true) {
-            if (kettleOn) {
-                //keep adding energy until the water reaches 100 degree celsius
-                if (waterTemperature < 100.0) {
-                    //not all the energy from the outlet made it into the water.
-                    totalSystemEnergy += (KETTLE_WATTAGE * 0.92);
-                }
-                else {
-                    kettleOn = false;
-                    System.out.println("Done! Water temperature: " + waterTemperature);
-                    System.out.println("Energy in water: " + totalSystemEnergy/1000 + " kJ.");
-                    return;
-                }
-                //water temperature is inferred from the total system energy inside the kettle
-                waterTemperature = (totalSystemEnergy / waterVolume) / STANDARD_HEAT_CAPACITY;
-            }
-
-            //pause 1 second to emulate real life situation.
-            try {
-                Thread.sleep(1000);
-            }
-            catch (InterruptedException e) {
-                System.out.println("oops... something broke. it's likely your fault.");
-            }
+    private void handleKettlePhysics() {
+        System.out.println("Boiling ... ");
+        while (waterTemperature < 100.0) {
+            totalSystemEnergy += (KETTLE_WATTAGE * 0.92);
+            waterTemperature = (totalSystemEnergy / waterVolume) / STANDARD_HEAT_CAPACITY;
+            estimatedTime += 1;
         }
+        kettleOn = false;
+
     }
 
-    void on() {
+    public void on() {
         kettleOn = true;
         handleKettlePhysics();
     }
 
-    void addWater(int volume) {
-        waterVolume += volume;
-        System.out.println(volume + " ml added.");
+
+
+    //getters
+
+    public int getEstimatedTime() {
+        return estimatedTime;
+    }
+
+    public int getWaterVolume() {
+        return waterVolume;
+    }
+
+    public double getRoomTemperature() {
+        return roomTemperature;
+    }
+
+    public double getWaterTemperature() {
+        return waterTemperature;
+    }
+
+    public double getTotalSystemEnergy() {
+        return totalSystemEnergy;
+    }
+
+    public boolean getKettleOn() {
+        return kettleOn;
+    }
+
+    //setters
+    public void setWaterVolume(int waterVolume) {
+        this.waterVolume = waterVolume;
+    }
+
+    public void setRoomTemperature(double roomTemperature) {
+        this.roomTemperature = roomTemperature;
     }
 }
 
